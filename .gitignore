@@ -1,0 +1,27 @@
+# build files
+build/
+dist/
+
+# dependencies
+node_modules/
+
+# logs
+*.log
+
+# local env files
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# backups
+*~
+
+# hidden files
+.DS_Store
+.gitignore
+
+# coverage
+coverage/
+
