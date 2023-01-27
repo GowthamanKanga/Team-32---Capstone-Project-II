@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Footer from "../components/Footer.jsx";
 import Navbar from "../components/Navbar.jsx";
 import Jumbotron from "../components/Jumbotron.jsx";
-import "./ParkList.css";
+import "./FacilityList.css";
 
 const facilities = [
   { id: 1, facilityName: "Volleyball", facilityDescription: "", price: 100.99 },
@@ -32,12 +32,12 @@ class FacilityList extends Component {
 
     // Logic for displaying current parks
     const indexOfLastFacility = currentPage * facilitiesPerPage;
-    const indexOfFirstFacility = indexOfLastPark - facilitiesPerPage;
+    const indexOfFirstFacility = indexOfLastFacility - facilitiesPerPage;
     const currentFacilities = facilities.slice(indexOfFirstFacility, indexOfLastFacility);
 
     // Logic for displaying page numbers
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(parks.length / parksPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(facilities.length / facilitiesPerPage); i++) {
       pageNumbers.push(i);
     }
 
