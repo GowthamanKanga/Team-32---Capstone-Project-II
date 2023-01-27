@@ -1,0 +1,105 @@
+import React, { Component } from "react";
+import Footer from "../components/Footer.jsx";
+import Navbar from "../components/Navbar.jsx";
+import ParkNavBar from "../components/ParkNavBar.jsx";
+import Jumbotron from "../components/Jumbotron.jsx";
+import { Calendar } from 'react-calendar';
+
+const events = [
+  { name: "Concert in the Park", location: "High Park, Toronto, ON", date: "2022-07-01", id: 1 },
+  { name: "Trinity Bellwoods Park Art Fair", location: "Trinity Bellwoods Park, Toronto, ON", date: "2022-08-15", id: 2 },
+  { name: "Riverdale Park Farmers Market", location: "Riverdale Park, Toronto, ON", date: "2022-09-12", id: 3 },
+  { name: "Guild Park Sculpture Exhibition", location: "Guild Park and Gardens, Toronto, ON", date: "2022-10-01", id: 4 },
+  { name: "Centennial Park Fall Festival", location: "Centennial Park, Toronto, ON", date: "2022-10-15", id: 5 },
+  { name: "Cedarvale Park Winter Carnival", location: "Cedarvale Park, Toronto, ON", date: "2022-12-01", id: 6 },
+  { name: "Rouge National Urban Park Nature Walk", location: "Rouge National Urban Park, Toronto, ON", date: "2022-11-01", id: 7 },
+  { name: "Tommy Thompson Park Bird Watching", location: "Tommy Thompson Park, Toronto, ON", date: "2022-09-15", id: 8 },
+  { name: "Grenadier Pond Winter Sports", location: "Grenadier Pond, Toronto, ON", date: "2022-12-15", id: 9 },
+  { name: "James Gardens Spring Flowers", location: "James Gardens, Toronto, ON", date: "2022-04-01", id: 10 },
+  { name: "Mimico Waterfront Park Summer Festival", location: "Mimico Waterfront Park, Toronto, ON", date: "2022-07-15", id: 11 },
+];
+
+class Event extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPage: 1,
+      eventsPerPage: 4,
+      date: new Date(),
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.onChange = this.onChange.bind(this
+
+);
+}
+
+handleClick(event) {
+this.setState({
+currentPage: Number(event.target.id)
+});
+}
+
+onChange(date) {
+this.setState({ date });
+}
+
+render() {
+const { currentPage, eventsPerPage } = this.state;
+
+
+// Logic for displaying current events
+const indexOfLastEvent = currentPage * eventsPerPage;
+const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
+
+// Logic for displaying page numbers
+const pageNumbers = [];
+for (let i = 1; i <= Math.ceil(events.length / eventsPerPage); i++) {
+  pageNumbers.push(i);
+}
+
+const renderPageNumbers = pageNumbers.map(number => {
+  return (
+    <li
+      key={number}
+      id={number}
+      onClick={this.handleClick}
+    >
+      {number}
+    </li>
+  );
+});
+
+return (
+  <div>
+    <Navbar />
+    <Jumbotron title="Events" subtitle="Find an event near you!" />
+    <ParkNavBar className="NavBar"/>
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="events-calendar">
+            <Calendar onChange={this.onChange} value={this.state.date} />
+          </div>
+          <div className="events-list">
+            {currentEvents.map(event => (
+              <div key={event.id} className="event-item">
+                <h4>{event.name}</h4>
+                <p>Location: {event.location}</p>
+                <p>Date: {event.date}</p>
+              </div>
+            ))}
+          </div>
+          <ul id="page-numbers">
+            {renderPageNumbers}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <Footer />
+  </div>
+);
+}
+}
+
+export default Event;

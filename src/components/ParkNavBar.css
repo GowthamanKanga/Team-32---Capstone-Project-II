@@ -1,0 +1,13 @@
+.navbar-brand {
+    color: #333;
+  }
+  
+  a {
+    color: #aaa;
+    font-weight: 200;
+  }
+
+  .NavBar {
+    display: flex;
+    justify-content: center;
+}
